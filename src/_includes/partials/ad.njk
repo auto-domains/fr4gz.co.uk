@@ -1,0 +1,9 @@
+{#- Manual AdSense unit. Set `adSlot` before including: listing, article or sidebar. -#}
+{%- set adUnit = site.adsense.slots[adSlot] if site.adsense.client else "" %}
+{%- if adUnit %}
+<div class="ad ad--{{ adSlot }}">
+  <p class="ad__label">Advertisement</p>
+  <ins class="adsbygoogle" style="display:block" data-ad-client="{{ site.adsense.client }}" data-ad-slot="{{ adUnit }}" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+{%- endif %}

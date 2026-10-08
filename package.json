@@ -1,0 +1,24 @@
+{
+  "name": "fr4gz.co.uk",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Frag movies, FPS slang and the history of fragging, built with Eleventy for Cloudflare Pages.",
+  "type": "module",
+  "scripts": {
+    "build": "eleventy",
+    "start": "eleventy --serve",
+    "clean": "rm -rf _site"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/auto-domains/fr4gz.co.uk.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "@fontsource/chakra-petch": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0"
+  }
+}

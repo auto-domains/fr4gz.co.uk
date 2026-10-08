@@ -1,0 +1,28 @@
+{#- Google Analytics, Google Ads and AdSense tags. Configure in src/_data/site.js. -#}
+{%- set ga4 = site.analytics.ga4 %}
+{%- set aw = site.googleAds.conversionId %}
+{%- set gtagId = ga4 or aw %}
+{%- if gtagId or site.adsense.client %}
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    {%- if site.consentMode %}
+    gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
+    {%- endif %}
+    {%- if gtagId %}
+    gtag('js', new Date());
+    {%- if ga4 %}
+    gtag('config', '{{ ga4 }}');
+    {%- endif %}
+    {%- if aw %}
+    gtag('config', '{{ aw }}');
+    {%- endif %}
+    {%- endif %}
+  </script>
+  {%- if gtagId %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ gtagId }}"></script>
+  {%- endif %}
+  {%- if site.adsense.client %}
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense.client }}" crossorigin="anonymous"></script>
+  {%- endif %}
+{%- endif %}

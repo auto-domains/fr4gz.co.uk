@@ -1,0 +1,27 @@
+---
+layout: layouts/base.njk
+---
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="wrap">
+    <li><a href="/">Home</a></li>
+    <li aria-current="page">{{ heading }}</li>
+  </ol>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap wrap--narrow">
+    {%- if eyebrow %}
+    <p class="eyebrow">{{ eyebrow }}</p>
+    {%- endif %}
+    <h1>{{ heading }}</h1>
+    {%- if lede %}
+    <p class="lede">{{ lede }}</p>
+    {%- endif %}
+  </div>
+</header>
+
+<div class="wrap wrap--narrow page-body">
+  <div class="prose">
+    {{ content | safe }}
+  </div>
+</div>

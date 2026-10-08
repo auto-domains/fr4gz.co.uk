@@ -1,0 +1,57 @@
+---
+layout: layouts/base.njk
+permalink: /videos/
+title: "Best Frag Movies and Famous FPS Plays | FR4GZ"
+description: "Watch classic Quake and Unreal Tournament frag movies, legendary Counter-Strike plays, Valorant and Apex highlights, and documentaries on FPS history."
+heading: Frag movies and famous plays
+---
+{%- from "partials/icons.njk" import icon %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="wrap">
+    <li><a href="/">Home</a></li>
+    <li aria-current="page">Videos</li>
+  </ol>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap">
+    <p class="eyebrow">{{ icon("video") }} {{ videos.length }} videos</p>
+    <h1>{{ heading }}</h1>
+    <p class="lede">From the Quake frag movies that invented the format to the Counter-Strike plays crowds still chant about and the aces of today's esports, plus a few documentaries on where it all began.</p>
+    <ul class="filters" data-filters hidden aria-label="Filter videos">
+      <li><button type="button" data-filter="all" aria-pressed="true">All <span>{{ videos.length }}</span></button></li>
+      {%- for group in videoGroups %}
+      <li><button type="button" data-filter="{{ group.key }}" aria-pressed="false">{{ group.name }} <span>{{ (videos | byGroup(group.key)).length }}</span></button></li>
+      {%- endfor %}
+    </ul>
+  </div>
+</header>
+
+<div class="wrap listing">
+  {%- for group in videoGroups %}
+  <section class="video-group" id="{{ group.key }}" data-group-section="{{ group.key }}" aria-labelledby="{{ group.key }}-heading">
+    <div class="video-group__head">
+      <h2 id="{{ group.key }}-heading">{{ group.name }}</h2>
+      <span class="hud-tag">{{ group.tag }}</span>
+    </div>
+    <p class="section-intro">{{ group.intro }}</p>
+    <ul class="vid-grid">
+      {%- for v in videos | byGroup(group.key) %}
+      {% include "partials/video-card.njk" %}
+      {%- endfor %}
+    </ul>
+  </section>
+  {%- if loop.index == 2 %}
+  {%- set adSlot = "listing" %}
+  {% include "partials/ad.njk" %}
+  {%- endif %}
+  {%- endfor %}
+
+  <section class="callout" aria-labelledby="make-heading">
+    <h2 id="make-heading">Making your own frag movie</h2>
+    <p>Most competitive shooters can record a replay or demo of a match. Counter-Strike 2, Quake Live and Overwatch all have demo or replay systems that let you watch a round again from any angle, which is how frag movie makers capture clean, smooth footage. Record your clips, cut the best frags tight to the beat of the music, and keep the scoreboard or kill feed visible so viewers can follow what happened.</p>
+  </section>
+
+  <p class="note">Videos are embedded from YouTube using its privacy-enhanced mode and belong to their creators. Nothing loads from YouTube until you press play. Each video was checked as available on {{ site.videosChecked | readableDate }}. If one has gone missing, please <a href="/contact/">let us know</a>.</p>
+</div>
+<script type="application/ld+json">{{ videos | videosSchema({ "site": site, "page": page, "heading": heading, "description": description }) | jsonLd | safe }}</script>

@@ -1,0 +1,50 @@
+---
+layout: layouts/base.njk
+permalink: /glossary/
+title: "FPS Slang Glossary: Frag, Ace, Clutch and More | FR4GZ"
+description: "An A to Z of first-person shooter and esports slang, from frag, ace and clutch to rocket jump, wallbang and peeker's advantage, explained in plain English."
+heading: FPS slang glossary
+---
+{%- from "partials/icons.njk" import icon %}
+{%- set letters = glossary | byLetter %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="wrap">
+    <li><a href="/">Home</a></li>
+    <li aria-current="page">Glossary</li>
+  </ol>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow">{{ icon("book") }} {{ glossary.length }} terms</p>
+    <h1>{{ heading }}</h1>
+    <p class="lede">The words you hear in voice chat, on casts and in frag movie titles, explained in plain English.</p>
+    <nav class="az" aria-label="Jump to letter">
+      {%- for l in letters %}
+      <a href="#letter-{{ l.letter | lower }}">{{ l.letter }}</a>
+      {%- endfor %}
+    </nav>
+  </div>
+</header>
+
+<div class="wrap wrap--narrow page-body">
+  {%- for l in letters %}
+  <section class="glossary-letter" id="letter-{{ l.letter | lower }}" aria-label="{{ l.letter }}">
+    <h2 class="glossary-letter__head">{{ l.letter }}</h2>
+    <dl class="glossary">
+      {%- for t in l.items %}
+      <div class="glossary__item" id="{{ t.term | slugify }}">
+        <dt>{{ t.term }}</dt>
+        <dd>{{ t.def }}</dd>
+      </div>
+      {%- endfor %}
+    </dl>
+  </section>
+  {%- if loop.index == 4 %}
+  {%- set adSlot = "article" %}
+  {% include "partials/ad.njk" %}
+  {%- endif %}
+  {%- endfor %}
+  <p class="note">Missing a term? <a href="/contact/">Suggest one</a>.</p>
+</div>
+<script type="application/ld+json">{{ glossary | glossarySchema({ "site": site, "page": page, "heading": heading, "description": description }) | jsonLd | safe }}</script>

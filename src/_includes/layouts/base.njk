@@ -1,0 +1,118 @@
+{%- from "partials/icons.njk" import icon -%}
+{%- set metaTitle = title if title else site.title -%}
+{%- set metaDescription = description if description else site.description -%}
+{%- set canonical = site.url + page.url -%}
+<!doctype html>
+<html lang="{{ site.lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ metaTitle }}</title>
+  <meta name="description" content="{{ metaDescription }}">
+  {%- if page.url %}
+  <link rel="canonical" href="{{ canonical }}">
+  {%- endif %}
+  <meta name="robots" content="{{ robots or 'index, follow, max-image-preview:large' }}">
+  <meta property="og:type" content="{{ ogType or 'website' }}">
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:title" content="{{ metaTitle }}">
+  <meta property="og:description" content="{{ metaDescription }}">
+  <meta property="og:url" content="{{ canonical }}">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#07090c">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/chakra-petch-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/style.css?v={{ site.version }}">
+  {% include "partials/tracking.njk" %}
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="brand" href="/" aria-label="{{ site.domain }} home">
+        <span class="brand__mark">{{ icon("crosshair") }}</span>
+        <span class="brand__name">FR<span class="brand__four">4</span>GZ</span><span class="brand__tld">.co.uk</span>
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+          {%- for item in [["/videos/", "Videos"], ["/glossary/", "Glossary"], ["/history-of-fragging/", "History"]] %}
+          <li><a href="{{ item[0] }}"{% if page.url == item[0] %} aria-current="page"{% endif %}>{{ item[1] }}</a></li>
+          {%- endfor %}
+          {%- if site.sale.enabled %}
+          <li><a class="site-nav__sale" href="{{ site.sale.path }}"{% if page.url == site.sale.path %} aria-current="page"{% endif %}>{{ icon("tag") }} Buy this domain</a></li>
+          {%- endif %}
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <section>
+          <h2 class="footer-heading">Watch</h2>
+          <ul>
+            {%- for group in videoGroups %}
+            <li><a href="/videos/#{{ group.key }}">{{ group.name }}</a></li>
+            {%- endfor %}
+          </ul>
+        </section>
+        <section>
+          <h2 class="footer-heading">Learn</h2>
+          <ul>
+            <li><a href="/#what-is-a-frag">What is a frag?</a></li>
+            <li><a href="/glossary/">FPS slang glossary</a></li>
+            <li><a href="/history-of-fragging/">History of fragging</a></li>
+            <li><a href="/about/">About {{ site.name }}</a></li>
+          </ul>
+        </section>
+        {%- if site.sale.enabled %}
+        <section class="footer-sale">
+          <h2 class="footer-heading">This domain is for sale</h2>
+          <p>{{ site.domain }} is available to buy. A short, punchy name for a gaming clan, esports team, highlights channel or FPS community.</p>
+          <a class="btn btn--accent" href="{{ site.sale.path }}">Enquire about {{ site.domain }}</a>
+        </section>
+        {%- endif %}
+      </div>
+      <div class="footer-meta">
+        <p>{{ site.domain }} is an independent fan site. Videos are embedded from YouTube and belong to their creators. Game names are trademarks of their owners, and this site is not connected to any developer, publisher or tournament organiser.</p>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="/about/">About</a>
+          <a href="/contact/">Contact</a>
+          <a href="/privacy/">Privacy and cookies</a>
+          {%- if site.sale.enabled %}
+          <a href="{{ site.sale.path }}">Domain for sale</a>
+          {%- endif %}
+          <a href="/sitemap.xml">Sitemap</a>
+          {%- if site.adsense.client %}
+          <button type="button" class="linklike" data-consent-settings hidden>Cookie settings</button>
+          {%- endif %}
+        </nav>
+        <p class="copyright">&copy; {{ site.year }} {{ site.domain }} &middot; GG</p>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/site.js?v={{ site.version }}" defer></script>
+  {%- if site.adsense.client %}
+  <script>
+    (function () {
+      var button = document.querySelector('[data-consent-settings]');
+      window.googlefc = window.googlefc || {};
+      window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
+      window.googlefc.callbackQueue.push({ CONSENT_API_READY: function () {
+        if (!button || typeof window.googlefc.showRevocationMessage !== 'function') return;
+        button.hidden = false;
+        button.addEventListener('click', function () { window.googlefc.showRevocationMessage(); });
+      } });
+    })();
+  </script>
+  {%- endif %}
+</body>
+</html>

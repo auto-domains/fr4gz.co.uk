@@ -1,0 +1,40 @@
+---
+layout: layouts/base.njk
+ogType: article
+---
+{%- from "partials/icons.njk" import icon %}
+{%- set parts = content | splitContent(3) %}
+{%- set sections = content | toc %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="wrap">
+    <li><a href="/">Home</a></li>
+    <li aria-current="page">{{ heading }}</li>
+  </ol>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow">{{ eyebrow }}</p>
+    <h1>{{ heading }}</h1>
+    <p class="lede">{{ lede }}</p>
+    <p class="meta">{{ icon("clock") }} Updated <time datetime="{{ updated | isoDate }}">{{ updated | readableDate }}</time></p>
+  </div>
+</header>
+
+<div class="wrap article-layout">
+  <aside class="toc" aria-labelledby="toc-heading">
+    <h2 id="toc-heading" class="toc__heading">Loadout</h2>
+    <ol>
+      {%- for s in sections %}
+      <li><a href="#{{ s.id }}">{{ s.text | safe }}</a></li>
+      {%- endfor %}
+    </ol>
+  </aside>
+  <article class="prose">
+    {{ parts[0] | safe }}
+    {%- set adSlot = "article" %}
+    {% include "partials/ad.njk" %}
+    {{ parts[1] | safe }}
+  </article>
+</div>
+<script type="application/ld+json">{{ { "site": site, "page": page, "heading": heading, "description": description, "updated": updated } | articleSchema | jsonLd | safe }}</script>

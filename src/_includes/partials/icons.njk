@@ -1,0 +1,25 @@
+{% macro icon(name) -%}
+<svg class="icon icon--{{ name }}" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+{%- if name == "crosshair" -%}
+<circle cx="12" cy="12" r="7"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/><circle cx="12" cy="12" r="1" fill="currentColor"/>
+{%- elif name == "play" -%}
+<path d="M7 4.5v15l13-7.5z" fill="currentColor" stroke="none"/>
+{%- elif name == "video" -%}
+<rect x="2" y="5" width="15" height="14" rx="2"/><path d="m17 10 5-3v10l-5-3"/>
+{%- elif name == "book" -%}
+<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>
+{%- elif name == "clock" -%}
+<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+{%- elif name == "external" -%}
+<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/>
+{%- elif name == "arrow" -%}
+<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+{%- elif name == "tag" -%}
+<path d="M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z"/><circle cx="7.5" cy="7.5" r="1"/>
+{%- elif name == "check" -%}
+<path d="M20 6 9 17l-5-5"/>
+{%- elif name == "skull" -%}
+<path d="M12 2a8 8 0 0 0-8 8c0 3 1.6 5.2 4 6.4V20a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3.6c2.4-1.2 4-3.4 4-6.4a8 8 0 0 0-8-8z"/><circle cx="9" cy="11" r="1.6" fill="currentColor"/><circle cx="15" cy="11" r="1.6" fill="currentColor"/><path d="M10.5 21v-3M13.5 21v-3"/>
+{%- endif -%}
+</svg>
+{%- endmacro %}

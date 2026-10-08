@@ -1,0 +1,20 @@
+---
+layout: layouts/base.njk
+permalink: /404.html
+eleventyExcludeFromCollections: true
+title: "Page not found | FR4GZ"
+description: "The page you were looking for could not be found."
+robots: "noindex, follow"
+---
+{%- from "partials/icons.njk" import icon %}
+<header class="page-hero page-hero--404">
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow">{{ icon("skull") }} Error 404</p>
+    <h1>You were fragged by a missing page</h1>
+    <p class="lede">The page you were looking for could not be found. It may have been moved, or the address may be mistyped. Respawning is free.</p>
+    <div class="actions">
+      <a class="btn btn--primary" href="/">{{ icon("crosshair") }} Respawn at home</a>
+      <a class="btn btn--ghost" href="/videos/">{{ icon("play") }} Watch frag movies</a>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,15 @@
+{#- One YouTube video. Expects `v` (an entry from videos.js). The link works without
+    JavaScript; site.js swaps it for a privacy-enhanced embed when clicked. -#}
+<li class="vid" data-group="{{ v.group }}">
+  <a class="vid__player" href="https://www.youtube.com/watch?v={{ v.id }}" data-yt="{{ v.id }}" data-title="{{ v.title }}" aria-label="Play video: {{ v.title }}">
+    <img src="https://i.ytimg.com/vi/{{ v.id }}/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+    <span class="vid__play">{{ icon("play") }}</span>
+    <span class="vid__game">{{ v.game }}{% if v.year %} &middot; {{ v.year }}{% endif %}</span>
+  </a>
+  <div class="vid__body">
+    <h3 class="vid__title">{{ v.title }}</h3>
+    <p class="vid__channel">{{ v.channel }}</p>
+    <p class="vid__blurb">{{ v.blurb }}</p>
+    <a class="vid__yt" href="https://www.youtube.com/watch?v={{ v.id }}" rel="noopener" target="_blank">Watch on YouTube {{ icon("external") }}</a>
+  </div>
+</li>
